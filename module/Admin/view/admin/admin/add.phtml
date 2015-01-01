@@ -1,0 +1,71 @@
+<div class="inner bg-light lter">
+            <!--BEGIN INPUT TEXT FIELDS-->
+            <div class="row">
+              <div class="col-lg-10">
+                <div class="box dark">
+                  <header>
+                    <div class="icons">
+                      <i class="fa fa-edit"></i>
+                    </div>
+                    <h5>Add Users</h5>
+
+                    <!-- .toolbar -->
+                    <div class="toolbar">
+                      <nav style="padding: 8px;">
+                        <a href="javascript:;" class="btn btn-default btn-xs collapse-box">
+                          <i class="fa fa-minus"></i>
+                        </a> 
+                        <a href="javascript:;" class="btn btn-default btn-xs full-box">
+                          <i class="fa fa-expand"></i>
+                        </a> 
+                        <a href="javascript:;" class="btn btn-danger btn-xs close-box">
+                          <i class="fa fa-times"></i>
+                        </a> 
+                      </nav>
+                    </div><!-- /.toolbar -->
+                  </header>
+                  <div id="div-1" class="body">
+
+                    <?php 
+                      $form->setAttribute('action', $this->url('admin', array('action' => 'add')));
+                      $form->setAttribute('class', 'form-horizontal');
+                      $form->prepare();
+                      echo $this->form()->openTag($form);
+                    ?>
+                      <div class="form-group">
+                        <label for="text1" class="control-label col-lg-4">Name</label>
+                        <div class="col-lg-8">
+                          <?php echo $this->formElement($form->get('name')); ?>
+                        </div>
+                      </div><!-- /.form-group -->
+
+                      <div class="form-group">
+                        <label for="text4" class="control-label col-lg-4">Address</label>
+                        <div class="col-lg-8">
+                          <?php echo $this->formElement($form->get('address')); ?>
+                        </div>
+                      </div><!-- /.form-group -->
+
+                      <div class="form-group">
+                        <label for="text4" class="control-label col-lg-4">Status</label>
+                        <div class="col-lg-4">
+                          <?php echo $this->formElement($form->get('status')); ?>
+                        </div>
+                      </div><!-- /.form-group -->
+
+                      <div class="form-group">
+                       <div class="col-lg-4">
+                        <?php echo $this->formElement($form->get('submit')); ?>
+                      </div>
+                      </div><!-- /.form-group -->
+                    <?php echo $this->form()->closeTag();?>
+                  
+                  </div>
+                </div>
+              </div>
+
+          
+             
+            </div><!-- /.row -->
+          </div><!-- /.inner -->
+      
