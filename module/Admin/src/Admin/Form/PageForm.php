@@ -12,6 +12,12 @@ class PageForm extends Form
         parent::__construct('admin');
         $this->setAttribute('method', 'post');
         $this->add(array(
+            'name' => 'id',
+            'attributes' => array(
+                'type'  => 'hidden',
+            ),
+        ));
+        $this->add(array(
             'name' => 'label',
             'attributes' => array(
                 'type'  => 'text',
@@ -40,13 +46,13 @@ class PageForm extends Form
         ));
         $this->add(array(     
             'type' => 'Zend\Form\Element\Select',       
-            'name' => 'pages',
+            'name' => 'page_id',
             'attributes' =>  array(
                'id' => 'pages'              
             ),
             'options' => array(
                 'options' => array(
-                    'aboutus' => 'About Us',
+                    '1' => 'About Us',
                 ),
             ),
         ));
