@@ -26,35 +26,18 @@
         </header>
       <div id="div-1" class="body">
         <?php 
-          $form->setAttribute('action', $this->url('pages', array('action' => 'index'))); 
+          $form->setAttribute('action', $this->url('pages', array('action' => 'add'))); 
           $form->setAttribute('class', 'form-horizontal');
           $form->prepare();
           echo $this->form()->openTag($form);
           echo $this->formElement($form->get('id'));
         ?>
+       
         <div class="form-group">
-          <label for="text4" class="control-label col-lg-4">Content</label>
-          <div class="col-lg-8">
-            <?php echo $this->formElement($form->get('content')); ?>
-            <script type="text/javascript">
-              CKEDITOR.replace( 'content1234' );
-            </script>
-
-            <span id="content" class="help-block"><?php echo $this->formElementerrors($form->get('content'));?></span>
-          </div>
-        </div><!-- /.form-group -->
-        <div class="form-group">
-          <label for="text4" class="control-label col-lg-4">Page</label>
-          <div class="col-lg-2">
-            <?php echo $this->formElement($form->get('page_id')); ?>
-          </div>
-        </div><!-- /.form-group -->
-
-        <div class="form-group">
-          <label for="text4" class="control-label col-lg-4">Slug</label>
+          <label for="text4" class="control-label col-lg-4">Page Name</label>
           <div class="col-lg-4">
-            <?php echo $this->formElement($form->get('slug')); ?>
-             <span id="slug" class="help-block"><?php echo $this->formElementerrors($form->get('slug'));?></span>
+            <?php echo $this->formElement($form->get('page_name')); ?>
+             <span id="slug" class="help-block"><?php echo $this->formElementerrors($form->get('page_name'));?></span>
           </div>
         </div><!-- /.form-group -->
 

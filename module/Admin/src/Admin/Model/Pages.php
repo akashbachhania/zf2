@@ -7,20 +7,16 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
-class Page implements InputFilterAwareInterface
+class Pages implements InputFilterAwareInterface
 {
     public $id;
-    public $content;
-    public $slug;
-    public $page_id;
+    public $page_name;
     protected $inputFilter;
 
     public function exchangeArray($data)
     {
         $this->id     = (isset($data['id']))     ? $data['id']     : null;
-        $this->content  = (isset($data['content']))  ? $data['content']  : null;
-        $this->slug  = (isset($data['slug']))  ? $data['slug']  : null;
-        $this->page_id  = (isset($data['page_id']))  ? $data['page_id']  : null;
+        $this->page_name  = (isset($data['page_name']))  ? $data['page_name']  : null;
     }
 
      // Add the following method:
@@ -47,39 +43,9 @@ class Page implements InputFilterAwareInterface
                     array('name' => 'Int'),
                 ),
             )));
-
+           
             $inputFilter->add($factory->createInput(array(
-                'name'     => 'slug',
-                'required' => false,
-                'filters'  => array(
-                    array('name' => 'StripTags'),
-                    array('name' => 'StringTrim'),
-                ),
-                'validators' => array(
-                    array(
-                        'name'    => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min'      => 1,
-                        ),
-                    ),
-                    array(
-                        'name'    => 'Regex',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'pattern'      => '/[a-zA-Z]/',
-                            'messages' => array(
-                                'regexInvalid' => 'Regex is invalid!',
-                                'regexNotMatch' => 'Please give only alphabet',
-                                'regexErrorous' => 'Internal error!',
-                            )
-                        ),
-                    ),
-                ),
-            )));
-
-            $inputFilter->add($factory->createInput(array(
-                'name'     => 'content',
+                'name'     => 'page_name',
                 'required' => true,
                 'filters'  => array(
                     //array('name' => 'StripTags'),

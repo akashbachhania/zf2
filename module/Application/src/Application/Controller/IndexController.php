@@ -18,4 +18,8 @@ class IndexController extends AbstractActionController
     {
         return new ViewModel();
     }
+    
+    public function pageAction(){
+    	die(' hre');
+    }
 }

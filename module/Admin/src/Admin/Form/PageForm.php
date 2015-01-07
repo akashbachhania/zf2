@@ -17,14 +17,6 @@ class PageForm extends Form
                 'type'  => 'hidden',
             ),
         ));
-        $this->add(array(
-            'name' => 'label',
-            'attributes' => array(
-                'type'  => 'text',
-                'class' => 'form-control top',
-                'placeholder' => 'Label',
-            ),
-        ));
 
         $this->add(array(
             'name' => 'slug',

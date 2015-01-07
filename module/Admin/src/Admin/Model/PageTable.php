@@ -19,32 +19,39 @@ class PageTable
         return $resultSet;
     }
 
-    public function getPage($id)
+    public function getPage($page_id)
     {
-        $id  = (int) $id;
-        $rowset = $this->tableGateway->select(array('id' => $id));
+        $page_id = (int) $page_id;
+        $rowset = $this->tableGateway->select(array('page_id' => $page_id));
         $row = $rowset->current();
         if (!$row) {
-            throw new \Exception("Could not find row $id");
+            throw new \Exception("Could not find row $page_id");
         }
         return $row;
     }
 
     public function savePage(Page $page)
-    {//echo "<pre>";print_r($page);die(' jrere');
+    {//echo "<pre>";print_r($page);die;
+        //checking slug
+        if(empty($page->slug)){
+            $slug=$page->page_name;
+        }
+        else{
+            $slug=$page->slug;
+        }
+            
         $data = array(
-            'label' => $page->label,
             'content'  => $page->content,
-            'slug'  => $page->slug,
+            'slug'  => $slug,
             'page_id'  => $page->page_id,
         );
 
-        $id = (int)$page->id;
-        if ($id == 0) {
+        $page_id = (int)$page->page_id;
+        if ($page_id == 0) {
             $this->tableGateway->insert($data);
         } else {
-            if ($this->getAlbum($id)) {
-                $this->tableGateway->update($data, array('id' => $id));
+            if ($this->getPage($page_id)) {
+                $this->tableGateway->update($data, array('page_id' => $page_id));
             } else {
                 throw new \Exception('Form id does not exist');
             }
