@@ -17,15 +17,7 @@ class AddPageForm extends Form
                 'type'  => 'hidden',
             ),
         ));
-        $this->add(array(
-            'name' => 'page_name',
-            'attributes' => array(
-                'type'  => 'text',
-            ),
-            'options' => array(
-                'label' => 'Page Name',
-            ),
-        ));
+        
         
         $this->add(array(
             'name' => 'submit',

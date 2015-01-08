@@ -42,7 +42,7 @@ class Page implements InputFilterAwareInterface
 
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'id',
-                'required' => true,
+                'required' => false,
                 'filters'  => array(
                     array('name' => 'Int'),
                 ),
@@ -80,6 +80,24 @@ class Page implements InputFilterAwareInterface
 
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'content',
+                'required' => true,
+                'filters'  => array(
+                    //array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min'      => 1,
+                        ),
+                    ),
+                ),
+            )));
+
+             $inputFilter->add($factory->createInput(array(
+                'name'     => 'page_id',
                 'required' => true,
                 'filters'  => array(
                     //array('name' => 'StripTags'),

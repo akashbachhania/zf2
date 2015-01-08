@@ -31,12 +31,15 @@ class PagesTable
         return $row->page_name;
     }
 
-    public function savePages(Pages $pages)
+    public function savePages($page_name)
     {
         $data = array(
-            'page_name'  => $pages->page_name,
+            'page_name'  => $page_name,
         );
         $this->tableGateway->insert($data);
+        $id=$this->tableGateway->getLastInsertValue();
+        return $id;
+        echo $id;die(' hfdf');
     }
 
    

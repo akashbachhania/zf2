@@ -31,7 +31,7 @@ class PageTable
     }
 
     public function savePage(Page $page)
-    {//echo "<pre>";print_r($page);die;
+    {//echo "<pre>";print_r($page->id);die;
         //checking slug
         if(empty($page->slug)){
             $slug=$page->page_name;
@@ -46,12 +46,12 @@ class PageTable
             'page_id'  => $page->page_id,
         );
 
-        $page_id = (int)$page->page_id;
-        if ($page_id == 0) {
+        $id = (int)$page->id;
+        if ($id == 0) {
             $this->tableGateway->insert($data);
         } else {
-            if ($this->getPage($page_id)) {
-                $this->tableGateway->update($data, array('page_id' => $page_id));
+            if ($this->getPage($id)) {
+                $this->tableGateway->update($data, array('id' => $id));
             } else {
                 throw new \Exception('Form id does not exist');
             }

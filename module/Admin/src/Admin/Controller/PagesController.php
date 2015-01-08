@@ -15,37 +15,40 @@ class PagesController extends AbstractActionController{
     protected $pagesTable;
 	//protected $pagesTable;
 	public function indexAction(){
-        //Dynamic page list from pages table
-        $options=$this->getPagesTable()->fetchAll();
-        foreach ($options as $option){
-            $drop[$option->id]=$option->page_name;
-        }
+
+        return new ViewModel(array(
+            'page' => $this->getPageTable()->fetchAll(),
+        ));
+
+    }
+
+    public function addAction(){
         //Intializing page form
-		$form = new PageForm();
-        $form->get('page_id')->setValueOptions($drop);
-		$form->get('submit')->setValue('Submit');
-		
-		//Getting post request and processing it
-		$request = $this->getRequest();
-        if ($request->isPost()) {
-        	$page = new Page();
-        	$form->setInputFilter($page->getInputFilter());
-        	$form->setData($request->getPost());
-        	 if ($form->isValid()) {
+        $form = new PageForm();
+        $form->get('submit')->setValue('Submit');
+        
+        //Getting post request and processing it
+        $request = $this->getRequest();
+        if ($request->isPost()) {//echo "<pre>";print_r($request->getPost());die;
+            $page = new Page();
+            $form->setInputFilter($page->getInputFilter());
+            $form->setData($request->getPost());
+             if ($form->isValid()) {
                 $page->exchangeArray($form->getData());
-                $page_name=$this->getPagesTable()->getPageName($page);
-                $page->page_name=$page_name;
+                //echo "<pre>";print_r($page);die;
+                $page_id=$this->getPagesTable()->SavePages($page->page_name);
+                $page->page_id=$page_id;
                 $this->getPageTable()->savePage($page);
 
                 // Redirect to list of albums
                 return $this->redirect()->toRoute('pages');
             }
         }
-		//Returning page form
-		return array('form' => $form);
+        //Returning page form
+        return array('form' => $form);
     }
 
-    public function addAction(){
+   /* public function addAction(){
         $form = new AddPageForm();
         $form->get('submit')->setValue('Add');
 
@@ -64,7 +67,7 @@ class PagesController extends AbstractActionController{
             }
         }
         return array('form' => $form);
-    }
+    }*/
 
     public function getPageTable()
     {

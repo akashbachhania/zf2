@@ -36,16 +36,15 @@ class PageForm extends Form
                 'placeholder' => 'content',
             ),
         ));
-        $this->add(array(     
-            'type' => 'Zend\Form\Element\Select',       
+       
+
+        $this->add(array(
             'name' => 'page_id',
-            'attributes' =>  array(
-               'id' => 'pages'              
+            'attributes' => array(
+                'type'  => 'text',
             ),
             'options' => array(
-                'options' => array(
-                    '1' => 'About Us',
-                ),
+                'label' => 'Page Name',
             ),
         ));
 

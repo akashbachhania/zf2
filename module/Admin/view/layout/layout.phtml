@@ -45,7 +45,7 @@
         <?php echo $this->headScript()
             ->prependFile($this->basePath() . '/js/bootstrap.min.js')
             ->prependFile($this->basePath() . '/css/lib/less/less-1.7.5.min.js')
-            ->prependFile($this->basePath() . '/css/lib/jquery/jquery.min.jss')
+            ->prependFile($this->basePath() . '/css/lib/jquery/jquery.min.js')
             ->prependFile($this->basePath() . '/css/lib/bootstrap/js/bootstrap.min.js"')
             ->prependFile($this->basePath() . '/css/lib/metismenu/metisMenu.min.js')
             ->prependFile($this->basePath() . '/css/lib/screenfull/screenfull.js')
@@ -70,9 +70,11 @@
             ->prependFile($this->basePath() . '/css/lib/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js')
             ->prependFile($this->basePath() . '/js/core.min.js')
             ->prependFile($this->basePath() . '/js/app.min.js')
+            ->prependFile($this->basePath() . '/js/modernizr.min.js')
             //ckeditor fileds
             ->prependFile($this->basePath() . '/js/ckeditor/ckeditor.js')
         ; ?>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 
         <script>
           less = {
@@ -531,7 +533,12 @@
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal --><!-- /#helpModal -->
 
-   
+   <script>
+      $(function() {
+        Metis.MetisTable();
+        Metis.metisSortable();
+      });
+    </script>
     <script>
       $(function() {
         Metis.formGeneral();
