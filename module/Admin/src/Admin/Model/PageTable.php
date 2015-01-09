@@ -19,10 +19,10 @@ class PageTable
         return $resultSet;
     }
 
-    public function getPage($page_id)
+    public function getPage($id)
     {
-        $page_id = (int) $page_id;
-        $rowset = $this->tableGateway->select(array('page_id' => $page_id));
+        $id = (int) $id;
+        $rowset = $this->tableGateway->select(array('id' => $id));
         $row = $rowset->current();
         if (!$row) {
             throw new \Exception("Could not find row $page_id");
@@ -56,6 +56,17 @@ class PageTable
                 throw new \Exception('Form id does not exist');
             }
         }
+    }
+
+    public function JoinfetchAll()
+    {
+        $sqlSelect = $this->tableGateway->getSql()->select();
+        $sqlSelect->columns(array('slug','id'));
+        $sqlSelect->join('pages', 'pages.id = page_content.page_id', array('page_name'), 'inner');
+
+        $statement = $this->tableGateway->getSql()->prepareStatementForSqlObject($sqlSelect);
+        $resultSet = $statement->execute();
+        return $resultSet;
     }
 
     public function deleteAlbum($id)

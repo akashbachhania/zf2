@@ -44,7 +44,7 @@ class PageForm extends Form
                 'type'  => 'text',
             ),
             'options' => array(
-                'label' => 'Page Name',
+                
             ),
         ));
 

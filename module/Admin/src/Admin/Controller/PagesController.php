@@ -16,8 +16,10 @@ class PagesController extends AbstractActionController{
 	//protected $pagesTable;
 	public function indexAction(){
 
+        $pages=$this->getPageTable()->JoinfetchAll();
+        //echo "<pre>";print_r($pages);die;
         return new ViewModel(array(
-            'page' => $this->getPageTable()->fetchAll(),
+            'pages' =>$this->getPageTable()->JoinfetchAll(),
         ));
 
     }
@@ -46,6 +48,40 @@ class PagesController extends AbstractActionController{
         }
         //Returning page form
         return array('form' => $form);
+    }
+
+    public function editAction()
+    {
+        $id = (int) $this->params()->fromRoute('id', 0);
+        if (!$id) {
+            return $this->redirect()->toRoute('pages', array(
+                'action' => 'add'
+            ));
+        }
+        $page = $this->getPageTable()->getPage($id);
+        $page_name= $this->getPagesTable()->getPageName($page);
+
+        $form  = new PageForm();
+        $form->bind($page);
+        $form->get('submit')->setAttribute('value', 'Edit');
+        $form->get('page_id')->setAttribute('value', $page_name);
+
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $form->setInputFilter($page->getInputFilter());
+            $form->setData($request->getPost());
+
+            if ($form->isValid()) {
+                $this->getPageTable()->savepage($form->getData());
+                // Redirect to list of albums
+                return $this->redirect()->toRoute('pages');
+            }
+        }
+
+        return array(
+            'id' => $id,
+            'form' => $form,
+        );
     }
 
    /* public function addAction(){
