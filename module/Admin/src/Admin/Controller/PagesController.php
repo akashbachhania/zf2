@@ -38,11 +38,12 @@ class PagesController extends AbstractActionController{
              if ($form->isValid()) {
                 $page->exchangeArray($form->getData());
                 //echo "<pre>";print_r($page);die;
-                $page_id=$this->getPagesTable()->SavePages($page->page_name);
-                $page->page_id=$page_id;
+                $page_id=$this->getPagesTable()->SavePages($page->page_id);
+                    $page->page_id=$page_id;
                 $this->getPageTable()->savePage($page);
 
                 // Redirect to list of albums
+                $this->flashMessenger()->addSuccessMessage('Data Inserted Successfully!');
                 return $this->redirect()->toRoute('pages');
             }
         }
@@ -69,11 +70,15 @@ class PagesController extends AbstractActionController{
         $request = $this->getRequest();
         if ($request->isPost()) {
             $form->setInputFilter($page->getInputFilter());
+            $page_id=$page->page_id;
             $form->setData($request->getPost());
 
             if ($form->isValid()) {
+                $this->getPagesTable()->savePagesById($page_id,$this->getRequest()->getPost('page_id'));
                 $this->getPageTable()->savepage($form->getData());
-                // Redirect to list of albums
+                //echo "<pre>";print_r($page);die;
+                // Redirect to list of pages
+                $this->flashMessenger()->addSuccessMessage('Data Update Successfully!');
                 return $this->redirect()->toRoute('pages');
             }
         }
@@ -83,27 +88,33 @@ class PagesController extends AbstractActionController{
             'form' => $form,
         );
     }
-
-   /* public function addAction(){
-        $form = new AddPageForm();
-        $form->get('submit')->setValue('Add');
+    
+    public function deleteAction()
+    {
+        $id = (int) $this->params()->fromRoute('id', 0);
+        if (!$id) {
+            return $this->redirect()->toRoute('pages');
+        }
 
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $pages = new Pages();
-            $form->setInputFilter($pages->getInputFilter());
-            $form->setData($request->getPost());
-
-            if ($form->isValid()) {
-                $pages->exchangeArray($form->getData());
-                $this->getpagesTable()->savePages($pages);
-
-                // Redirect to list of albums
-                return $this->redirect()->toRoute('pages');
+            $del = $request->getPost('del', 'No');
+            echo $del;die;
+            if ($del == 'Yes') {
+                $id = (int) $request->getPost('id');
+                $this->getPageTable()->deletePage($id);
             }
+
+            // Redirect to list of albums
+            return $this->redirect()->toRoute('pages');
         }
-        return array('form' => $form);
-    }*/
+
+        return array(
+            'id'    => $id,
+            'album' => $this->getPageTable()->getAlbum($id)
+        );
+    }
+
 
     public function getPageTable()
     {

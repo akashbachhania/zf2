@@ -39,8 +39,12 @@ class PagesTable
         $this->tableGateway->insert($data);
         $id=$this->tableGateway->getLastInsertValue();
         return $id;
-        echo $id;die(' hfdf');
     }
 
-   
+    public function savePagesById($page_id,$page_name){
+        $data = array(
+            'page_name'  => $page_name,
+        );
+        $this->tableGateway->update($data, array('id' => $page_id));
+    }
 }

@@ -40,16 +40,19 @@ class PageTable
             $slug=$page->slug;
         }
             
-        $data = array(
-            'content'  => $page->content,
-            'slug'  => $slug,
-            'page_id'  => $page->page_id,
-        );
-
         $id = (int)$page->id;
         if ($id == 0) {
+            $data = array(
+                'content'  => $page->content,
+                'slug'  => $slug,
+                'page_id'  => $page->page_id,
+            );
             $this->tableGateway->insert($data);
         } else {
+            $data = array(
+                'content'  => $page->content,
+                'slug'  => $slug,
+            );
             if ($this->getPage($id)) {
                 $this->tableGateway->update($data, array('id' => $id));
             } else {
