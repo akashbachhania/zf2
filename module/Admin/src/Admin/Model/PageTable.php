@@ -72,7 +72,7 @@ class PageTable
         return $resultSet;
     }
 
-    public function deleteAlbum($id)
+    public function deletePage($id)
     {
         $this->tableGateway->delete(array('id' => $id));
     }

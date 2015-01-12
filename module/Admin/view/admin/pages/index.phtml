@@ -1,4 +1,20 @@
-   <a href="#link1" title="title1" class="link" data-toggle="modal">Email</a>
+   <script type="text/javascript">
+    $(document).ready(function(){
+      var page_id;   
+      $(".link").click(function() {
+          page_id=$(this).attr('data-id');
+          $("#page_id").val(page_id);
+          //alert($(this).attr('data-id'));
+      });
+      $( ".confirm" ).click(function() {
+        confirm_result=$(this).val();
+        if(confirm_result=="yes")
+          $("#delete_form").submit();
+        else
+          $( "#close" ).trigger( "click" );
+      });
+    });
+   </script>
     <div class="bg-dark dk" id="wrap">
       <div id="top">
 
@@ -36,7 +52,7 @@
                           <td>
                             <a href="<?php echo $this->url('pages',
                               array('action'=>'edit', 'id' => $page['id']));?>">Edit</a>
-                            <a href="#lik1" title="title1" class="link" data-toggle="modal">Delete</a>
+                            <a href="#link1" title="title1" class="link" data-toggle="modal" data-id="<?php echo $page['id'];?>">Delete</a>
                           </td>
                         </tr>
                       <?php $i++;endforeach; ?>  
@@ -51,7 +67,7 @@
   <div class="modal-dialog" >
     <div class="modal-content">
       <button id="close" class="close" aria-hidden="true" data-dismiss="modal" type="button">x</button>
-      <form id="generators_form" action="#" method="post">
+      <form id="delete_form" action="pages/delete" method="post">
       <table align="center" cellpadding="5" cellspacing="5">
         <tr>
           <td>
@@ -60,12 +76,9 @@
         </tr>
         <tr>
           <td>
-            <input type="text" name="name" placeholder="user name"/>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input type="submit" id="send" name="send" value="Send"/>
+            <input type="hidden" name="page_id" id="page_id">
+            <input type="button" class="confirm" name="yes" value="yes"/>
+            <input type="button" class="confirm" name="no" value="no"/>
           </td>
         </tr>
       </table>

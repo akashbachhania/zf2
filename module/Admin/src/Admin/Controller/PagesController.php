@@ -90,22 +90,16 @@ class PagesController extends AbstractActionController{
     }
     
     public function deleteAction()
-    {
-        $id = (int) $this->params()->fromRoute('id', 0);
-        if (!$id) {
-            return $this->redirect()->toRoute('pages');
-        }
-
+    { //$request = $this->getRequest();echo $request->getPost('page_id');die(' delete');
+        
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $del = $request->getPost('del', 'No');
-            echo $del;die;
-            if ($del == 'Yes') {
-                $id = (int) $request->getPost('id');
-                $this->getPageTable()->deletePage($id);
-            }
-
+            
+            $id = (int) $request->getPost('page_id');
+            $this->getPageTable()->deletePage($id);
+            
             // Redirect to list of albums
+            $this->flashMessenger()->addSuccessMessage('Data Deleted Successfully!');
             return $this->redirect()->toRoute('pages');
         }
 
@@ -115,6 +109,10 @@ class PagesController extends AbstractActionController{
         );
     }
 
+    public function testAction(){
+        $this->layout('layout/test_layout.phtml');
+        
+    }
 
     public function getPageTable()
     {
