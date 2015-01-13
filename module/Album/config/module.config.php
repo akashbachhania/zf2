@@ -3,20 +3,21 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Album\Controller\Album' => 'Album\Controller\AlbumController',
-            'Album\Controller\Auth' => 'Album\Controller\AuthController',
-            'Album\Controller\Success' => 'Album\Controller\SuccessController',
         ),
     ),
-    // The following section is new and should be added to your file
+
     'router' => array(
         'routes' => array(
             'album' => array(
                 'type'    => 'segment',
                 'options' => array(
-                    'route'    => '/album[/:action][/:id]',
+                    'route'    => '/album[/:action][/:id][/page/:page][/order_by/:order_by][/:order]',
                     'constraints' => array(
-                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'action' => '(?!\bpage\b)(?!\border_by\b)[a-zA-Z][a-zA-Z0-9_-]*',
                         'id'     => '[0-9]+',
+                        'page' => '[0-9]+',
+                        'order_by' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'order' => 'ASC|DESC',
                     ),
                     'defaults' => array(
                         'controller' => 'Album\Controller\Album',
@@ -24,67 +25,15 @@ return array(
                     ),
                 ),
             ),
-            //login controller
-
-            'login' => array(
-                'type'    => 'Literal',
-                'options' => array(
-                    'route'    => '/auth',
-                    'defaults' => array(
-                        '__NAMESPACE__' => 'Album\Controller',
-                        'controller'    => 'Auth',
-                        'action'        => 'login',
-                    ),
-                ),
-                'may_terminate' => true,
-                'child_routes' => array(
-                    'process' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route'    => '/[:action]',
-                            'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                            ),
-                            'defaults' => array(
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-
-            //success controller
-            'success' => array(
-                'type'    => 'Literal',
-                'options' => array(
-                    'route'    => '/success',
-                    'defaults' => array(
-                        '__NAMESPACE__' => 'Album\Controller',
-                        'controller'    => 'Success',
-                        'action'        => 'index',
-                    ),
-                ),
-                'may_terminate' => true,
-                'child_routes' => array(
-                    'default' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route'    => '/[:action]',
-                            'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                            ),
-                            'defaults' => array(
-                            ),
-                        ),
-                    ),
-                ),
-            ),
         ),
     ),
+
     'view_manager' => array(
         'template_path_stack' => array(
             'album' => __DIR__ . '/../view',
+        ),
+        'template_map' => array(
+            'paginator-slide' => __DIR__ . '/../view/layout/slidePaginator.phtml',
         ),
     ),
 );

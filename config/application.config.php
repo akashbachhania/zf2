@@ -6,6 +6,7 @@ return array(
         'Album',
         'Admin',
         'CKEditorBundle',
+        'SanSamplePagination',
     ),
 
     // These are various options for the listeners attached to the ModuleManager
